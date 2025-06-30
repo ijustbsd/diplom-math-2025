@@ -14,13 +14,10 @@ def impulse_function(
 ) -> npt.NDArray[np.float64]:
     omega = omega_0 * np.arange(1, n + 1).reshape(-1, 1)
     noise = np.ones(n)
-    noise[deb] -= 1 * noise_power
+    noise[deb] += 1 * noise_power
     noise = noise.reshape(-1, 1)
-    # m_matrix = np.array(m).reshape(-1, 1)
-    # r_matrx = np.array(r).reshape(-1, 1)
     t_matrix = np.tile(t, (n, 1))
     x = np.array(range(n, 0, -1)).reshape(-1, 1)
-    # return (m_matrix * (omega * noise) ** 2 * r_matrx * np.cos(omega * noise * t_matrix)).sum(axis=0)
     return (x * np.cos(omega * t_matrix * noise)).sum(axis=0)
 
 
@@ -42,12 +39,6 @@ r = [
 ]
 
 n = 8
-# m = [(n - k + 1) for k in range(1, 7)]
-
-# t = np.linspace(-np.pi, np.pi, 1000)
-# vibration = f_ind(t=t, n=1, m=m[0], r=r[0], omega=1)
-# impulse = impulse_function(t=t, n=6, m=m, r=r, omega_0=1)
-
 
 def func(x, y):
     t = np.linspace(-np.pi, np.pi, 10000)
@@ -61,7 +52,6 @@ ax.set_xlabel("Ошибка в угловой скорости вращения"
 ax.set_xscale("log")
 
 noise_power = np.array([10 ** -x for x in range(3, 8)])
-# noise_power = np.array([10 ** -1, 5 * 10 ** -2, 10 ** -2, 5 * 10 ** -3, 10 ** -3, 5 * 10 ** -4, 10 ** -4, 5 * 10 ** -5, 10 ** -5, 10 ** -6])
 for d in range(n):
     deb_text = {
         3: 'я',
@@ -69,7 +59,6 @@ for d in range(n):
     ax.plot(
         noise_power,
         [func(d, p) for p in noise_power],
-        # label=fr'${d + 1}^{{{deb_text}}}$ пара дебалансов с дефектами',
         label=fr'{d + 1}-{deb_text} пара дебалансов с дефектами',
         linestyle='--',
         marker='o',
