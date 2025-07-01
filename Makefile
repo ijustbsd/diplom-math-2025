@@ -42,3 +42,4 @@ clean:
 	rm -f *.aux *.log *.out *.toc *.pdf *.bbl *.bcf *.blg *.xml *.nav *.snm
 	rm -f images/*.pdf
 	rm -f tp-output.*
+	rm -f referat-tp-output.*
