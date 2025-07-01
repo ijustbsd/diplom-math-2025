@@ -409,7 +409,7 @@
    <text:p text:style-name="P12"/>
    <text:p text:style-name="P12"/>
    <text:p text:style-name="P1"><text:span text:style-name="T9">{{theme}}</text:span></text:p>
-   <text:p text:style-name="P8">Научно-квалификационная работа</text:p>
+   <text:p text:style-name="P8">Научный доклад по выполненной научно-квалификационной работе</text:p>
    <text:p text:style-name="P3"><text:span text:style-name="T7">Направление 01.06.01 Математика и механика</text:span></text:p>
    <text:p text:style-name="P3"><text:span text:style-name="T7">Профиль Дифференциальные уравнения, динамические системы и оптимальное управление</text:span></text:p>
    <text:p text:style-name="P6"/>

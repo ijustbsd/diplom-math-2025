@@ -2,7 +2,7 @@
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english, russian]{babel}
-\usepackage{amssymb, amsfonts, amsmath, amsthm, microtype, pdfpages, indentfirst, minted, fancyhdr}
+\usepackage{amssymb, amsfonts, amsmath, amsthm, microtype, pdfpages, indentfirst, fancyhdr}
 \usepackage[unicode, colorlinks=true, allcolors=black]{hyperref}
 \usepackage{graphicx}
 \graphicspath{{images/}}
@@ -18,17 +18,17 @@
 \onehalfspacing
 
 \usepackage[style=gost-numeric, maxbibnames=42]{biblatex}
-\addbibresource{diplom.bib}
+\addbibresource{referat.bib}
 
 \newtheorem{definition}{Определение}
 
 
 \begin{document}
 
-\includepdf{tp-output.pdf}
+\includepdf{referat-tp-output.pdf}
 
 \tableofcontents
 
-\include{main}
+\include{referat-main}
 
 \end{document}

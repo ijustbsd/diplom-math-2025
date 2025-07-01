@@ -19,6 +19,7 @@ images/pogruzhatel.png
 *.pdf
 
 tp-output.fodt
+referat-tp-output.fodt
 
 .~lock.*
 data.csv
