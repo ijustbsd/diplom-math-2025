@@ -8,8 +8,8 @@
 \usetheme{Madrid}
 \usecolortheme{beaver}
 
-\title{Математическая модель импульсного погружателя с учетом малой асинхронности}
-\date{25.06.2021}
+\title{О математическом моделировании процесса погружения сваи с дополнительными параметрами}
+\date{02.07.2025}
 \author{Бабошин Сергей Дмитриевич}
 
 \setbeamertemplate{frametitle}[default][center]
@@ -25,57 +25,82 @@
         \frametitle{Постановка задачи}
         В данной работе ставятся и решаются следующие задачи:
         \begin{enumerate}
-            \item Описать математическую модель взаимодействия элементов системы: ипмульсного погружателя,
-            сваи и грунта;
-            \item Получить численное решение для уравнения, представляющего собой модель процесса погружения сваи;
-            \item Сравнить полученные результаты с результатами, полученными в ходе практических испытаний.
+            \item Описать математическую модель процесса работы импульсного погружателя с дефектами;
+            \item Оценить суммарное влияние, вносимое деталями с дефектами и естесвенным износом на процесс погружения;
+            \item Оценить влияние на процесс погружения, вносимое каждой парой дебалансов в отдельности.
         \end{enumerate}
     \end{frame}
 
     \begin{frame}
         \frametitle{Импульсный погружатель}
         \begin{figure}
-            \includegraphics[width=0.2\linewidth]{pogruzhatel}
+            \includegraphics[width=0.4\linewidth]{pogruzhatel-2}
             \caption{Модель импульсного погружателя.}
         \end{figure}
-        \begin{align*}
-            1 &- \text{погружаемый элемент } (\textit{свая}),\\
-            2 &- \textit{вибровозбудитель},\\
-            3 &- \textit{грунт}.
-        \end{align*}
     \end{frame}
 
     \begin{frame}
-        \frametitle{Процесс погружения сваи}
+        Сила, генерируемая импульсным погружателем:
+        \begin{equation}
+            f(t,\lambda)=\sum_{k=1}^n \lambda_k\cos(kt),\ t\in [-\pi,\pi],\ \lambda =(\lambda_1, \ldots,\lambda_n).
+        \end{equation}
+        \begin{figure}
+            \includegraphics[width=0.75\linewidth]{impulse_1vs6}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        Уравнение гармонического колебания пары дебалансов будет иметь вид:
+
+        \begin{equation}
+            \begin{aligned}
+                x(t) = 2 m \omega^2 l \cos (\omega t)
+            \end{aligned}
+        \end{equation}
+        \noindent где $m$ - масса дебаланса, $l$ - расстояние от центра масс до оси вращения дебаланса, $\omega$ - угловая скорость.
+
+        \noindent Для всех пар дебалансов сумма гармонических колебаний будет иметь вид:
+
+        \begin{equation}
+            \label{eq:F}
+            F = \sum\limits_{k = 1}^n 2 m_k \cdot (k \omega)^2 \cdot l(r_k) \cdot \cos (k \omega t)
+        \end{equation}
+        \noindent где $n$ --- количество пар дебалансов, $k$ --- порядковый номер пары дебалансов.
+    \end{frame}
+
+    \begin{frame}
+        Абсолютное отношение максимального значения функции к минимальному значению называется коэффициентом асимметрии $K_n$:
+        \begin{equation}
+            \label{eq:asymm-coef}
+            K_n = \left| \frac{ \max\limits_{-\pi<t<\pi} F(t)}{\min\limits_{-\pi<t<\pi} F(t)}\right|,
+        \end{equation}
+
+        Модель оптимального импульсного погружателя:
+        \begin{equation}
+            \label{eq:impulse_mf}
+            f_n(t, \lambda) = \sum\limits_{k = 1}^n (n-k+1) \cos(k \omega t),\ t \in [-\pi, \pi],\ \lambda =(\lambda_1, \ldots,\lambda_n)
+        \end{equation}
+
+        Функция (\ref{eq:impulse_mf}) называется импульсом Максвелла–Фейера.
+    \end{frame}
+
+    \begin{frame}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=1\linewidth]{graph-impulse}
+            \caption{Оптимальный импульс, создаваемый импульсным погружателем.}
+            \label{fig:graph-impulse}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Моделирование процесса погружения}
         Процесс вибрационного погружения можно описать с помощью следующего равенства:
         \begin{equation}
             \label{eq:R}
             R = F_\text{вибр. возд.} + F_\text{тяж.} - F_\text{бс} - F_\text{лс},
         \end{equation}
-        где
-        \begin{equation*}
-            \begin{aligned}
-                &R - \text{равнодействующая сила,}\\
-                &F_\text{вибр. возд.} - \text{сила, создаваемая погружающей установкой,}\\
-                &F_\text{тяж.} - \text{сила тяжести,}\\
-                &F_\text{бс} - \text{сила бокового сопротивления,}\\
-                &F_\text{лс} - \text{сила лобового сопротивления.}
-            \end{aligned}
-        \end{equation*}
-    \end{frame}
-
-    \begin{frame}
-        \frametitle{Численное моделирование}
-        \begin{itemize}
-            \item $R = ma = m\ddot{x}$, {\scriptsizeгде $m$ - масса и $a$ - ускорение.}
-            \item $F_\text{тяж.} = mg$, {\scriptsizeгде $g$ - ускорение свободного падения.}
-            \item $F_\text{лс} = S_\text{пс} h_i(x(t), \xi)$, {\scriptsizeгде $S_\text{пс}$ - площадь поперечного сечения
-            сваи, $h_i(x(t), \xi)$ - удельное лобовое сопротивление, $\xi$ - коэфициент условий работы грунта под нижним
-            концом сваи.}
-            \item $F_\text{бс} = P x(t) f_i(\psi)$, {\scriptsizeгде $P$ - периметр сваи, $x(t)$ - глубина погружения и $f_i(\psi)$ - удельная
-            сила бокового сопротивления, зависящая от типа грунта.}
-            \end{itemize}
-        Переписав уравнение \ref{eq:R} получаем следующее дифферециальное уравнение второго порядка:
+        Расписав \ref{eq:R} более подробно получаем следующее ДУ:
         \begin{equation}
             \label{eq:main}
             m\ddot{x} = F_\text{вибр. возд.} + mg + S_\text{пс} h_i(x(t), \xi) + P x(t) f_i(\psi)
@@ -84,6 +109,7 @@
         \begin{equation*}
             x(0) = 0, \dot{x}(0) = 0.
         \end{equation*}
+        Где $m$ -- масса всей установки, $x(t)$ -- глубина погружения сваи, $t$ -- время погружения сваи.
     \end{frame}
 
     \begin{frame}
@@ -107,53 +133,97 @@
     \begin{frame}
         \frametitle{Программа для расчёта процесса погружения}
         \begin{figure}
-            \includegraphics[width=0.7\linewidth]{screenshot}
+            \includegraphics[width=1\linewidth]{screenshot}
             \caption{Скриншот окна программы.}
         \end{figure}
-        \begin{columns}
- 
-            \column{0.3\textwidth}
-            \begin{figure}
-                \includegraphics[width=0.8\linewidth]{python-logo}
-            \end{figure}
-             
-            \column{0.3\textwidth}
-            \begin{figure}
-                \includegraphics[width=0.8\linewidth]{matplotlib-logo}
-            \end{figure}
-
-            \column{0.3\textwidth}
-            \begin{figure}
-                \includegraphics[width=0.8\linewidth]{numpy-logo}
-            \end{figure}
-
-            \end{columns}
     \end{frame}
 
     \begin{frame}
-        \frametitle{Программа для расчёта процесса погружения}
-        \begin{figure}
-            \includegraphics[width=1\linewidth]{graph-impulse}
-            \caption{График силы, генерируемой импульсным погружателем.}
+        \frametitle{Допуски на изготовление и естесвенный износ}
+
+        Допуски на производстве и естесвенный износ деталей погружателя приводят к следующей модели:
+        \begin{equation}
+            \widetilde{\omega} = \omega (1 + \delta(t)),
+        \end{equation}
+        где $\delta(t)$ - погрешность угловой скорости вращения вала дебаланса в момент времени $t$, вызванная дефектами узлов погружателя.
+
+        Т.о. выражение (\ref{eq:F}) примет вид:
+
+        \begin{equation}
+            \label{eq:F_noise}
+            \begin{gathered}
+                F = \sum\limits_{k = 1}^n 2 m_k \cdot (k \omega (1 + \delta(t)))^2 \cdot l(r_k) \cdot \cos (k \omega (1 + \delta(t)) t)
+            \end{gathered}
+        \end{equation}
+    \end{frame}
+
+    \begin{frame}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.33\linewidth]{noise_001}
+            \includegraphics[width=0.33\linewidth]{noise_0001}
+
+            a. $\sigma = 10^{-2}$ \hspace{2cm} b. $\sigma = 10^{-3}$
+
+            \includegraphics[width=0.33\linewidth]{noise_00001}
+            \includegraphics[width=0.33\linewidth]{noise_0}
+
+            c. $\sigma = 10^{-4}$ \hspace{2cm} d. $\sigma = 0$
+            \caption{График импульса вынуждающей силы.
+            $a$ -- в поле шума со стандартным отклонением $\sigma = 10^{-2}$;
+            $b$ -- в поле шума со стандартным отклонением $\sigma = 10^{-3}$;
+            $c$ -- в поле шума со стандартным отклонением $\sigma = 10^{-4}$;
+            $d$ -- идеальный случай, без шума.}
+            \label{fig:impulse-noise}
         \end{figure}
     \end{frame}
 
     \begin{frame}
-        \frametitle{Условия практических испытаний}
-        Для проверки результатов, использовалась свая со следующими параметрами:
-        \begin{itemize}
-            \item Свая представляет собой квадратную трубу с размером 40x40 мм и толщиной стенки 2 мм,
-            \item Длина сваи - 1,7 м,
-            \item Масса сваи - 4,17 кг.
-        \end{itemize}
-        Масса испульсного погружателя - 37 кг.
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=1\linewidth]{dive_with_noise}
+            \caption{Графики угловых скоростей и глубины погружения сваи в грунт.
+            Зеленый -- идеальный случай; красный -- поле шума со стандартным отклонением $\sigma = 10^{-3}$}
+            \label{fig:dive_with_noise}
+        \end{figure}
     \end{frame}
 
     \begin{frame}
-        \frametitle{Результаты работы пограммы}
-        \begin{figure}
-            \includegraphics[width=1\linewidth]{graph}
-            \caption{Сравнение результатов численного решения и результатов, полученных на практике.}
+        \frametitle{Влияние каждой пары дебалансов с дефектами}
+        Вынуждающая сила импульсного погружателя, при наличии отклонения в угловой скорости $m$-го дебаланса:
+        \begin{equation}
+            \label{eq:F_noise_one_deb}
+            \widetilde{F} = \sum\limits_{k = 1}^n (n - k + 1) \cdot \cos (k \omega (1 + \delta_k) t),
+        \end{equation}
+        где
+        \begin{equation}
+            \begin{aligned}
+                \delta_k =
+                \begin{cases}
+                    0, \quad k \neq m \\
+                    \varepsilon, \quad k = m,
+                \end{cases}
+            \end{aligned}
+        \end{equation}
+    \end{frame}
+
+    \begin{frame}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=1\linewidth]{pairs_with_defects_7}
+            \caption{График изменения коэффициента ассиметрии для каждой пары дебалансов и погрешностей изготовления.
+            Количество пар дебалансов -- 7.}
+            \label{fig:pairs_with_defects_7}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=1\linewidth]{pairs_with_defects_8}
+            \caption{График изменения коэффициента ассиметрии для каждой пары дебалансов и погрешностей изготовления.
+            Количество пар дебалансов -- 8.}
+            \label{fig:pairs_with_defects_8}
         \end{figure}
     \end{frame}
 
